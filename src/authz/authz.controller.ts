@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -17,7 +18,7 @@ export class AuthzController {
 
   @Get('callback')
   @UseGuards(LoginGuard)
-  async callback(@Req() req): Promise<any> {
-    return;
+  async callback(@Req() req, @Res() res): Promise<any> {
+    return res.redirect('/');
   }
 }
