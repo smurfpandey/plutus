@@ -14,9 +14,9 @@ export class Unauthorized implements ExceptionFilter {
     _exception: ForbiddenException | UnauthorizedException,
     host: ArgumentsHost,
   ) {
-    console.log(
-      _exception instanceof ForbiddenException ? `@Forbidden` : `@Unauthorized`,
-    )
+    // console.log(
+    //   _exception instanceof ForbiddenException ? `@Forbidden` : `@Unauthorized`,
+    // )
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
     response.redirect('/auth/login')

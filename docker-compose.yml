@@ -1,0 +1,20 @@
+
+services:
+  db:
+    image: postgres:13.3-alpine
+    container_name: "plutus_db"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: plutus
+      POSTGRES_USER: plutus
+      POSTGRES_DB: plutus
+
+  caddy:
+    image: "abiosoft/caddy:latest"
+    container_name: "plutus_proxy"
+    volumes:
+      - ./ssl:/root/certs # to sync mkcert certificates to Caddy
+      - ./Caddyfile:/etc/Caddyfile  # to mount custom Caddyfile
+    ports:
+      - "443:2015"
