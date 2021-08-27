@@ -1,4 +1,6 @@
-import { Controller, Get, UseFilters, UseGuards } from '@nestjs/common';
+import { Controller, Get, Render, Req, UseFilters, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
+
 import { AppService } from './app.service';
 import { Unauthorized } from './authz/authz.filter';
 import { SessionGuard } from './authz/session.guard';
@@ -10,7 +12,8 @@ export class AppController {
   @UseGuards(SessionGuard)
   @UseFilters(Unauthorized)
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  root(@Req() req: Request) {
+    return { message: 'Hello world!', user: JSON.stringify(req.user) };
   }
 }

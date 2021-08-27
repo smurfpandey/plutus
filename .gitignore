@@ -37,3 +37,4 @@ lerna-debug.log*
 .env
 ssl/
 ormconfig.json
+static/dist
