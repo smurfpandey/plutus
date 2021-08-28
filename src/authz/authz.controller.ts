@@ -21,4 +21,10 @@ export class AuthzController {
   async callback(@Req() req, @Res() res): Promise<any> {
     return res.redirect('/');
   }
+
+  @Get('logout')
+  async logout(@Req() req, @Res() res): Promise<any> {
+    req.logout();
+    return res.redirect('/');
+  }
 }

@@ -3,11 +3,21 @@
     <header class="text-gray-100 body-font w-full">
       <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
-          <a class="mr-5 hover:text-gray-900 cursor-pointer border-b border-transparent hover:border-indigo-600">About</a>
-          <a class="mr-5 hover:text-gray-900 cursor-pointer border-b border-transparent hover:border-indigo-600">Products</a>
-          <a class="mr-5 hover:text-gray-900 cursor-pointer border-b border-transparent hover:border-indigo-600">Investor
-            Relations</a>
-          <a class="hover:text-gray-900 cursor-pointer border-b border-transparent hover:border-indigo-600">Contact</a>
+          <a href="/" class="shadow-inner mr-5 cursor-pointer border-transparent hover:shadow-inner h-12 min-w-min px-5 font-medium bg-purple-200 text-center text-purple-500 rounded-md flex items-center justify-center">
+            Dashboard
+          </a>
+          <a href="/nps" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
+            NPS
+          </a>
+          <a href="/epf" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
+            EPF
+          </a>
+          <a href="/ppf" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
+            PPF
+          </a>
+          <a href="/stocks" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
+            Stocks
+          </a>
         </nav>
         <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center lg:items-center lg:justify-center mb-4 md:mb-0">
           <svg id="logo-37" width="42" height="38" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,11 +34,10 @@
           <span class="ml-3 text-xl">Plutus</span>
         </a>
         <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-          Welcome {{ user.name }}
           <Menu as="div" class="relative inline-block text-left">
             <div>
               <MenuButton class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                Options
+                {{ user.name }}
                 <ChevronDownIcon class="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100" aria-hidden="true" />
               </MenuButton>
             </div>
@@ -38,53 +47,33 @@
                 <div class="px-1 py-1">
                   <MenuItem v-slot="{ active }">
                   <button :class="[
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                  active ? 'bg-gray-900 text-white' : 'text-gray-900',
                   'group flex rounded-md items-center w-full px-2 py-2 text-sm',
                 ]">
-                    <EditIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
-                    Edit
+                    <UserCircleIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
+                    Profile
                   </button>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                   <button :class="[
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                  active ? 'bg-gray-900 text-white' : 'text-gray-900',
                   'group flex rounded-md items-center w-full px-2 py-2 text-sm',
                 ]">
-                    <DuplicateIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
-                    Duplicate
-                  </button>
-                  </MenuItem>
-                </div>
-                <div class="px-1 py-1">
-                  <MenuItem v-slot="{ active }">
-                  <button :class="[
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                  'group flex rounded-md items-center w-full px-2 py-2 text-sm',
-                ]">
-                    <ArchiveIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
-                    Archive
-                  </button>
-                  </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                  <button :class="[
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                  'group flex rounded-md items-center w-full px-2 py-2 text-sm',
-                ]">
-                    <MoveIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
-                    Move
+                    <CogIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
+                    Settings
                   </button>
                   </MenuItem>
                 </div>
 
                 <div class="px-1 py-1">
                   <MenuItem v-slot="{ active }">
-                  <button :class="[
-                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                  <a href="/auth/logout" :class="[
+                  active ? 'bg-gray-900 text-white' : 'text-gray-900',
                   'group flex rounded-md items-center w-full px-2 py-2 text-sm',
                 ]">
-                    <DeleteIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
-                    Delete
-                  </button>
+                    <LogoutIcon :active="active" class="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
+                    Logout
+                  </a>
                   </MenuItem>
                 </div>
               </MenuItems>
@@ -95,12 +84,22 @@
     </header>
     <div class="container mx-auto">
 
-      <section class="text-white p-5">
-        <div class="container mx-auto flex px-5 py-6 items-center justify-center flex-col">
-          <div class="text-center lg:w-2/3 w-full">
-            <p class="leading-relaxed mb-8 font-normal">
-
-            </p>
+      <section class="p-5">
+        <div class="container mx-auto flex py-6 items-center justify-center flex-col">
+          <div class="w-full">
+            <div class="leading-relaxed mb-8 font-normal">
+              <div class="w-full rounded-lg shadow-lg p-4 text-gray-900 bg-white h-72 grid grid-cols-3 gap-4 justify-items-center">
+                <div class="flex justify-center items-center">
+                  <div>
+                    <div class="text-2xl my-4">Total networth</div>
+                    <div class="font-bold text-5xl text-gray-700 tracking-wide">₹ 19,23,456</div>
+                  </div>
+                </div>
+                <div class="col-span-2 flex justify-center items-center">
+                  Something something
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -116,12 +115,21 @@
 </template>
 
 <script>
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { ChevronDownIcon } from '@heroicons/vue/solid'
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import { ChevronDownIcon } from '@heroicons/vue/solid';
+import { UserCircleIcon, LogoutIcon, CogIcon } from '@heroicons/vue/outline';
 
 export default {
-
-  components: {},
+  components: {
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
+    ChevronDownIcon,
+    UserCircleIcon,
+    LogoutIcon,
+    CogIcon,
+  },
 
   data() {
     return {
