@@ -2,42 +2,44 @@
 
 import './app.css';
 import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import * as dayjs from 'dayjs';
-import VueApp from './vue/App.vue';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
+import VueApp from './vue/App.vue';
+import AppRoutes from './vue/routes';
+
 dayjs.extend(relativeTime);
+
 function App() {
 
-    const initPage = (pageName) => {
-        if (pageName === 'home') {
-            // const elem_btnShowModal = document.getElementById('btnShowModalAddGame');
-            // elem_btnShowModal.addEventListener('click', fnToggleModal);
-            const homeApp = createApp(VueApp);
-            homeApp.config.globalProperties.$filters = {
-                epochToHuman: (value) => {
-                    if (!value) return '';
-                    const dtTimestamp = dayjs.unix(value);
-                    return dtTimestamp.format('DD-MMM-YYYY');
-                },
-                epochToRelative: (value) => {
-                    if (!value) return '';
+  this.init = () => {
+    const router = createRouter({
+      // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+      history: createWebHistory(),
+      routes: AppRoutes,
+    });
 
-                    const dtTimestamp = dayjs.unix(value);
-                    return dtTimestamp.fromNow();
-                },
-            };
+    const mainApp = createApp(VueApp);
+    mainApp.config.globalProperties.$filters = {
+      epochToHuman: (value) => {
+        if (!value) return '';
+        const dtTimestamp = dayjs.unix(value);
+        return dtTimestamp.format('DD-MMM-YYYY');
+      },
+      epochToRelative: (value) => {
+        if (!value) return '';
 
-            homeApp.mount('#app');
-        }
+        const dtTimestamp = dayjs.unix(value);
+        return dtTimestamp.fromNow();
+      },
     };
+    mainApp.use(router);
+    mainApp.mount('#app');
 
-    this.init = (pageName) => {
-        initPage(pageName);
-        return true;
-    }
+  };
 };
 (() => {
-    const app = new App();
-    app.init('home');
+  const app = new App();
+  app.init('home');
 })();

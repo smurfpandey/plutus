@@ -3,21 +3,10 @@
     <header class="text-gray-100 body-font w-full">
       <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
-          <a href="/" class="shadow-inner mr-5 cursor-pointer border-transparent hover:shadow-inner h-12 min-w-min px-5 font-medium bg-purple-200 text-center text-purple-500 rounded-md flex items-center justify-center">
-            Dashboard
-          </a>
-          <a href="/nps" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
-            NPS
-          </a>
-          <a href="/epf" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
-            EPF
-          </a>
-          <a href="/ppf" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
-            PPF
-          </a>
-          <a href="/stocks" class="cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
-            Stocks
-          </a>
+          <router-link v-for="route in routes" :key="route.path" v-bind="{ to: route.path }" active-class="shadow-inner bg-purple-200 text-purple-500"
+            class="mr-5 cursor-pointer h-12 min-w-min px-5 font-medium hover:shadow-inner hover:bg-purple-200 text-center hover:text-purple-500 rounded-md flex items-center justify-center">
+            {{ route.name }}
+          </router-link>
         </nav>
         <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center lg:items-center lg:justify-center mb-4 md:mb-0">
           <svg id="logo-37" width="42" height="38" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,31 +72,9 @@
       </div>
     </header>
     <div class="container mx-auto">
-
-      <section class="p-5">
-        <div class="container mx-auto flex py-6 items-center justify-center flex-col">
-          <div class="w-full">
-            <div class="leading-relaxed mb-8 font-normal">
-              <div class="w-full rounded-lg shadow-lg p-4 text-gray-900 bg-white h-72 grid grid-cols-3 gap-4 justify-items-center">
-                <div class="flex justify-center items-center">
-                  <div>
-                    <div class="text-2xl my-4">Total networth</div>
-                    <div class="font-bold text-5xl text-gray-700 tracking-wide">₹ 19,23,456</div>
-                  </div>
-                </div>
-                <div class="col-span-2 flex justify-center items-center">
-                  Something something
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       <section>
         <div class="content">
-          <div class="w-full px-2 py-4 sm:px-0">
-
-          </div>
+          <router-view></router-view>
         </div>
       </section>
     </div>
@@ -115,9 +82,12 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/solid';
 import { UserCircleIcon, LogoutIcon, CogIcon } from '@heroicons/vue/outline';
+
+import AppRoutes from './routes';
 
 export default {
   components: {
@@ -129,11 +99,13 @@ export default {
     UserCircleIcon,
     LogoutIcon,
     CogIcon,
+    RouterLink,
   },
 
   data() {
     return {
       user: window.USER,
+      routes: AppRoutes,
     };
   },
 
