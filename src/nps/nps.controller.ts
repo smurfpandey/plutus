@@ -1,7 +1,7 @@
 
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { CreateNPSAccountDTO } from './dtos/create-nps-account.dto'
-import { NPSAccount } from './nps.account.entity';
+import { NPSAccount } from './entities/nps.account.entity';
 import { NPSService } from './nps.service';
 
 const PG_UNIQUE_CONSTRAINT_VIOLATION = '23505';

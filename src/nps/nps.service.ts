@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateNPSAccountDTO } from './dtos/create-nps-account.dto';
-import { NPSAccount } from './nps.account.entity';
+import { NPSAccount } from './entities/nps.account.entity';
 
 @Injectable()
 export class NPSService {
