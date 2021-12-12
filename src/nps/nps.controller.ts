@@ -1,6 +1,6 @@
 
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { CreateNPSAccountDTO } from './dto/create-nps-account.dto'
+import { CreateNPSAccountDTO } from './dtos/create-nps-account.dto'
 import { NPSAccount } from './nps.account.entity';
 import { NPSService } from './nps.service';
 
