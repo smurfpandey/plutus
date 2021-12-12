@@ -23,12 +23,27 @@ export class AuthzStrategy extends PassportStrategy(Strategy, 'authz') {
     })
   }
 
+  // Called to validate token, once?
   async validate(idToken: string): Promise<any> {
-    const { data } = await this.httpService.get(this.configService.get<string>('AUTH0_BASE_URL') + '/userinfo', {
-      headers: { Authorization: `Bearer ${ idToken }` },
-    })
-    .toPromise();
+    try {
+      const { data } = await this.httpService.get(this.configService.get<string>('AUTH0_BASE_URL') + '/userinfo', {
+        headers: { Authorization: `Bearer ${ idToken }` },
+      })
+      .toPromise();
 
-    return data;
+      //login/create account for the user
+      const dbUser = await this.authService.loginOrRegisterUser(data);
+      return dbUser;
+    } catch(err) {
+      if(err.isAxiosError) {
+        if (err.response.status === 401) {
+          // invalid idToken
+          // #TODO
+        }
+      }
+      console.log(err);
+
+      return null;
+    }
   }
 }
