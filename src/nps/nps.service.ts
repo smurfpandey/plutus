@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 import { CreateNPSAccountDTO } from './dtos/create-nps-account.dto';
 import { NPSAccount } from './entities/nps.account.entity';
@@ -11,7 +12,7 @@ export class NPSService {
     private npsAccountRepository: Repository<NPSAccount>,
   ) { }
 
-  createNPSAccount(createNPSDto: CreateNPSAccountDTO): Promise<NPSAccount> {
+  createNPSAccount(createNPSDto: CreateNPSAccountDTO, userId: string): Promise<NPSAccount> {
     const npsAccount = new NPSAccount();
     npsAccount.pran = createNPSDto.pran;
     npsAccount.subscriberName = createNPSDto.subscriberName;
@@ -20,11 +21,15 @@ export class NPSService {
     npsAccount.totalValue = createNPSDto.totalValue;
     npsAccount.intermediaryCharges = createNPSDto.intermediaryCharges;
 
+    const user = new UserEntity();
+    user.id = userId;
+    npsAccount.user = user;
+
     return this.npsAccountRepository.save(npsAccount);
   }
 
-  getAllNPSAccounts(): Promise<NPSAccount[]> {
-    return this.npsAccountRepository.find();
+  getNPSAccountOfUser(userId: string): Promise<NPSAccount> {
+    return this.npsAccountRepository.findOne({ where: { user: { id: userId }}});
   }
 
   getOneAccount(id: string): Promise<NPSAccount> {

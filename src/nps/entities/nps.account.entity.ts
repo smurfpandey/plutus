@@ -27,6 +27,9 @@ export class NPSAccount {
   @Column({ default: 0, type: 'numeric', precision: 12, scale: 2 })
   intermediaryCharges: number;
 
+  @CreateDateColumn({ type: 'date' })
+  snapshotDate: Date;
+
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createDateTime: Date;
 

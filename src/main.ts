@@ -7,6 +7,7 @@ import * as passport from 'passport';
 import { join } from 'path';
 
 import { AppModule } from './app.module';
+import { spaHandler } from './spa.middleware';
 
 declare const module: any;
 
@@ -26,6 +27,8 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.useGlobalPipes(new ValidationPipe());
+
+  // app.use(spaHandler);
 
   app.useStaticAssets(join(__dirname, '..', 'static/dist'));
   app.setBaseViewsDir(join(__dirname, '..', 'public'));

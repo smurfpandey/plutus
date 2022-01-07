@@ -11,7 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "build:client": "webpack --mode production",
     "dev:client": "webpack --mode development",
-    "watch:client": "webpack --watch",
+    "watch:client": "webpack --watch --mode development",
     "start:client": "npm run dev:client && npm run watch:client",
     "start": "nest start",
     "start:server": "nest start --watch",
@@ -51,7 +51,8 @@
     "rxjs": "^7.4.0",
     "typeorm": "^0.2.41",
     "vue": "^2.6.14",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.11",
+    "vue3-datepicker": "^0.3.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.1.5",

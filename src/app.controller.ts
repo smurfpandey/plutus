@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Req, UseFilters, UseGuards } from '@nestjs/common';
+import { Get, Controller, Render, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 
 import { AppService } from './app.service';
@@ -9,7 +9,6 @@ import { SessionGuard } from './authz/session.guard';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(SessionGuard)
   @UseFilters(Unauthorized)
   @Get()
   @Render('index')

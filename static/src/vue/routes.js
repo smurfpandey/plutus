@@ -1,5 +1,5 @@
 import HomePage from './components/pages/home.vue';
-import NPSPage from './components/pages/nps.vue';
+import NPSPage from './components/pages//nps/nps.vue';
 import EPFPage from './components/pages/epf.vue';
 import PPFPage from './components/pages/ppf.vue';
 import StocksPage from './components/pages/stocks.vue';
