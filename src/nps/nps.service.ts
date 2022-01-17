@@ -20,10 +20,29 @@ export class NPSService {
     npsAccount.totalContribution = createNPSDto.totalContribution;
     npsAccount.totalValue = createNPSDto.totalValue;
     npsAccount.intermediaryCharges = createNPSDto.intermediaryCharges;
+    npsAccount.lastValuationDate = createNPSDto.lastValuationDate;
 
     const user = new UserEntity();
     user.id = userId;
     npsAccount.user = user;
+
+    return this.npsAccountRepository.save(npsAccount);
+  }
+
+  async updateNPSAccount(createNPSDTO: CreateNPSAccountDTO, userId: string, npsId: string): Promise<NPSAccount> {
+    const npsAccount: NPSAccount = await this.getOneAccount(npsId);
+
+    if (!npsAccount) {
+      return undefined;
+    }
+
+    npsAccount.pran = createNPSDTO.pran;
+    npsAccount.subscriberName = createNPSDTO.subscriberName;
+    npsAccount.returnEarned = createNPSDTO.returnEarned;
+    npsAccount.totalContribution = createNPSDTO.totalContribution;
+    npsAccount.totalValue = createNPSDTO.totalValue;
+    npsAccount.intermediaryCharges = createNPSDTO.intermediaryCharges;
+    npsAccount.lastValuationDate = createNPSDTO.lastValuationDate;
 
     return this.npsAccountRepository.save(npsAccount);
   }

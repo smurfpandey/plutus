@@ -1,5 +1,5 @@
 
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 
 import { CreateNPSAccountDTO } from './dtos/create-nps-account.dto'
@@ -33,6 +33,15 @@ export class NPSController {
       } else {
         throw err;
       }
+    }
+  }
+
+  @Post(':id')
+  async update(@Req() req: Request, @Param('id') id: string, @Body() createNPSDTO: CreateNPSAccountDTO): Promise<NPSAccount> {
+    try {
+      return await this.npsService.updateNPSAccount(createNPSDTO, req.user['id'], id);
+    } catch (err) {
+      throw err;
     }
   }
  }

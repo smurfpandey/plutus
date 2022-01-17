@@ -1,7 +1,9 @@
-import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { HttpException, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { RavenModule, RavenInterceptor } from 'nest-raven';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -25,6 +27,7 @@ import { NpsModule } from './nps/nps.module';
       inject: [ConfigService],
     }),
     NpsModule,
+    RavenModule
   ],
   controllers: [AppController],
   providers: [AppService],

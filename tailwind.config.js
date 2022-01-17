@@ -1,7 +1,9 @@
 module.exports = {
     future: {},
-    purge: [],
-    darkMode: false,
+    content: [
+      './public/**/*.{html,js,hbs}',
+      './static/src/**/*.{js,jsx,ts,tsx,vue}',
+    ],
     theme: {
         extend: {
             colors: {
@@ -15,7 +17,6 @@ module.exports = {
             }
         }
     },
-    variants: {},
     plugins: [
         require('@tailwindcss/typography')
     ],

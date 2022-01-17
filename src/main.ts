@@ -5,13 +5,16 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import { join } from 'path';
+import * as Sentry from '@sentry/node';
 
 import { AppModule } from './app.module';
-import { spaHandler } from './spa.middleware';
+import { NotFoundExceptionFilter } from './filters/not-found-exception.filter';
 
 declare const module: any;
 
 async function bootstrap() {
+  Sentry.init({ dsn: process.env.SENTRY_DSN });
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
 
@@ -27,8 +30,7 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.useGlobalPipes(new ValidationPipe());
-
-  // app.use(spaHandler);
+  app.useGlobalFilters(new NotFoundExceptionFilter());
 
   app.useStaticAssets(join(__dirname, '..', 'static/dist'));
   app.setBaseViewsDir(join(__dirname, '..', 'public'));

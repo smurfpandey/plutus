@@ -6,6 +6,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+
 import { LoginGuard } from './login.guard';
 import { Public } from './session.guard';
 
@@ -29,5 +31,10 @@ export class AuthzController {
   async logout(@Req() req, @Res() res): Promise<any> {
     req.logout();
     return res.redirect('/');
+  }
+
+  @Get('whoami')
+  getUser(@Req() req: Request) {
+    return req.user;
   }
 }

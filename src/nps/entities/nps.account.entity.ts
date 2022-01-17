@@ -28,7 +28,7 @@ export class NPSAccount {
   intermediaryCharges: number;
 
   @CreateDateColumn({ type: 'date' })
-  snapshotDate: Date;
+  lastValuationDate: Date;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createDateTime: Date;

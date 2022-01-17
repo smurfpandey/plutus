@@ -1,4 +1,4 @@
-import { IsDecimal, IsNotEmpty, IsNumberString, Length } from 'class-validator';
+import { IsDateString, IsDecimal, IsNotEmpty, IsNumberString, Length } from 'class-validator';
 
 export class CreateNPSAccountDTO {
   @IsNotEmpty()
@@ -35,4 +35,7 @@ export class CreateNPSAccountDTO {
     decimal_digits: '2'
   })
   intermediaryCharges: number;
+
+  @IsDateString()
+  lastValuationDate: Date;
 }
