@@ -9,12 +9,6 @@ import { SessionGuard } from './authz/session.guard';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('api/whoami')
-  getUser(@Req() req: Request) {
-    console.log('aaya idhar');
-    return req.user;
-  }
-
   @UseFilters(Unauthorized)
   @Get()
   @Render('index')

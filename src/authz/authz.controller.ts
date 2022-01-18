@@ -32,9 +32,4 @@ export class AuthzController {
     req.logout();
     return res.redirect('/');
   }
-
-  @Get('whoami')
-  getUser(@Req() req: Request) {
-    return req.user;
-  }
 }

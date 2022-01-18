@@ -9,6 +9,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthzModule } from './authz/authz.module';
 import { NpsModule } from './nps/nps.module';
+import { UsersModule } from './users/user.module';
 
 @Module({
   imports: [
@@ -27,9 +28,19 @@ import { NpsModule } from './nps/nps.module';
       inject: [ConfigService],
     }),
     NpsModule,
-    RavenModule
+    RavenModule,
+    UsersModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, {
+    provide: APP_INTERCEPTOR,
+    useValue: new RavenInterceptor({
+      filters: [
+          // Filter exceptions of type HttpException. Ignore those that
+          // have status code of less than 500
+          { type: HttpException, filter: (exception: HttpException) => 500 > exception.getStatus() }
+      ],
+    }),
+  },],
 })
 export class AppModule { }

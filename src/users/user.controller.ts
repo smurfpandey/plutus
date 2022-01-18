@@ -9,6 +9,6 @@ export class UserController {
 
   @Get('whoami')
   async getNPS(@Req() req: Request) {
-    return "Hello!";
+    return req.user;
   }
  }
