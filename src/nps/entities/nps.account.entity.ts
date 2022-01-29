@@ -1,5 +1,7 @@
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+
 import { UserEntity } from '../../users/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { NPSScheme } from './nps.scheme.entity';
 
 @Entity()
 export class NPSAccount {
@@ -41,4 +43,7 @@ export class NPSAccount {
   })
   @JoinColumn()
   user: UserEntity;
+
+  @OneToMany(() => NPSScheme, scheme => scheme.nps)
+  schemes: NPSScheme[];
 }

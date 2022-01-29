@@ -1,5 +1,6 @@
 'use strict';
 
+import 'animate.css';
 import './app.css';
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';

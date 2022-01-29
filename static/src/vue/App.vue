@@ -109,11 +109,15 @@ const fnGetLoggedInUser = async () => {
       'Content-Type': 'application/json;charset=utf-8',
     },
   });
-  isLoading.value = false;
 
   if (response.status == 200) {
     user.value = await response.json();
+  } else if (response.status == 401) {
+    location.href = '/auth/login';
+    return;
   }
+
+  isLoading.value = false;
 }
 
 onMounted(() => {

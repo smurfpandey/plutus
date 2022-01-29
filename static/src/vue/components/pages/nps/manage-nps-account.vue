@@ -18,7 +18,7 @@
             >Last Valuation Date</label
           >
           <input type="date" id="start" name="trip-start"
-            v-model="npsAccount.lastValuationDate"
+            v-model="thisNPSAccount.lastValuationDate"
             :max="new Date()"
             class="
               bg-gray-50
@@ -31,19 +31,6 @@
               w-full
               p-2.5
             " />
-          <!-- <datepicker
-            :upperLimit="new Date()"
-            class="
-              bg-gray-50
-              border border-gray-300
-              text-gray-900
-              sm:text-sm
-              rounded-lg
-              focus:ring-blue-500 focus:border-blue-500
-              block
-              w-full
-              p-2.5
-            " /> -->
         </div>
       </div>
       <div class="md:flex flex-row md:space-x-4 w-full text-xs">
@@ -56,7 +43,7 @@
           <input
             type="text"
             id="pran"
-            v-model="npsAccount.pran"
+            v-model="thisNPSAccount.pran"
             class="
               bg-gray-50
               border border-gray-300
@@ -80,7 +67,7 @@
           <input
             type="text"
             id="subName"
-            v-model="npsAccount.subscriberName"
+            v-model="thisNPSAccount.subscriberName"
             class="
               bg-gray-50
               border border-gray-300
@@ -106,7 +93,7 @@
           <input
             type="text"
             id="totalContribution"
-            v-model="npsAccount.totalContribution"
+            v-model="thisNPSAccount.totalContribution"
             class="
               bg-gray-50
               border border-gray-300
@@ -130,7 +117,7 @@
           <input
             type="text"
             id="totalValue"
-            v-model="npsAccount.totalValue"
+            v-model="thisNPSAccount.totalValue"
             class="
               bg-gray-50
               border border-gray-300
@@ -156,7 +143,7 @@
           <input
             type="text"
             id="returnEarned"
-            v-model="npsAccount.returnEarned"
+            v-model="thisNPSAccount.returnEarned"
             class="
               bg-gray-50
               border border-gray-300
@@ -180,7 +167,7 @@
           <input
             type="text"
             id="intermediaryCharges"
-            v-model="npsAccount.intermediaryCharges"
+            v-model="thisNPSAccount.intermediaryCharges"
             class="
               bg-gray-50
               border border-gray-300
@@ -239,58 +226,41 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from 'vue';
+  import { onMounted, ref, reactive } from 'vue';
 
+  const props = defineProps({
+    npsAccount: Object
+  });
+  const emit = defineEmits(['updated', 'close'])
 
-    let isSaving = ref(false);
-    let isLoading = ref(false);
+  let thisNPSAccount = ref(props.npsAccount);
 
-    let npsAccount = ref({});
+  let isSaving = ref(false);
+  let isLoading = ref(false);
 
-    const fnGetNPSAccount = async () => {
-      isLoading.value = true;
+  const fnSave = async () => {
+    isSaving.value = true;
 
-      let reqUrl = '/api/nps';
-      const response = await fetch(reqUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      });
-      isLoading.value = false;
-
-      if (response.status == 200) {
-        npsAccount.value = await response.json();
-      }
+    let reqUrl = '/api/nps';
+    if (thisNPSAccount.value.id) {
+      reqUrl += '/' + thisNPSAccount.value.id;
     }
-
-    onMounted(() => {
-      fnGetNPSAccount();
+    const response = await fetch(reqUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(thisNPSAccount.value),
     });
 
-    const fnSave = async () => {
-      isSaving.value = true;
+    isSaving.value = false;
 
-      let reqUrl = '/api/nps';
-      if (npsAccount.value.id) {
-        reqUrl += '/' + npsAccount.value.id;
-      }
-      const response = await fetch(reqUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify(npsAccount.value),
-      });
+    if (response.status != 201) {
+      return;
+    }
 
-      isSaving.value = false;
+    const data = await response.json();
 
-      if (response.status != 201) {
-        return;
-      }
-
-      npsAccount.value = await response.json();
-    };
-
-
+    emit('updated', data);
+  };
 </script>
