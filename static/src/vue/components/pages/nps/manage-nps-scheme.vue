@@ -34,13 +34,14 @@
       </div>
       <div class="w-full text-xs mt-8">
         <div class="grid grid-cols-5 gap-4 p-4 items-center" v-for="asset in arrAssetAllocation" :key="asset.id">
-          <div class="col-span-2">
+          <div class="">
             <label class="text-sm font-medium text-gray-900">{{ asset.assetClass }}</label>
           </div>
-          <div class="col-span-2">
+          <div class="">
             <slider v-model="asset.allocationPercent" color="#FB278D" track-color="#ccc" />
           </div>
           <div class="">
+            <label class="text-sm font-medium text-gray-900 block mb-2">Allocation %</label>
             <div class="relative">
               <input v-model="asset.allocationPercent"
                   name="name"
@@ -52,6 +53,26 @@
                   %
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="relative">
+              <label class="text-sm font-medium text-gray-900 block mb-2">Total Contribution</label>
+              <input v-model="asset.totalContribution"
+                  name="name"
+                  type="text"
+                  class="text-sm sm:text-base relative w-full border rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none py-2 pr-2 pl-12">
+
+            </div>
+          </div>
+          <div class="">
+            <div class="relative">
+              <label class="text-sm font-medium text-gray-900 block mb-2">Total Units</label>
+              <input v-model="asset.totalUnits"
+                  name="name"
+                  type="text"
+                  class="text-sm sm:text-base relative w-full border rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none py-2 pr-2 pl-12">
+
             </div>
           </div>
         </div>
@@ -86,9 +107,7 @@
               transform
               active:scale-x-75
               transition-transform
-              flex
-            "
-          >
+              flex">
             <svg v-bind:class="{ hidden: !isSaving }" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
