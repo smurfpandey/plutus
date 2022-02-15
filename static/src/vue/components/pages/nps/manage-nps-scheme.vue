@@ -121,7 +121,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import slider from 'vue3-slider';
   const findKey = require('lodash/findKey');
 

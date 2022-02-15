@@ -114,8 +114,6 @@ export class NPSService {
     const nps = new NPSAccount();
     nps.id = npsId;
 
-    console.log(addNPSSchemeDTO);
-
     addNPSSchemeDTO.schemes.forEach((scheme) => {
       const asset = new NPSScheme();
 

@@ -69,4 +69,9 @@ export class NPSController {
       throw err;
     }
   }
+
+  @Post(':id/transactions')
+  async createTransaction(@Param('id') npsId: string) {
+    
+  }
  }

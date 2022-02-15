@@ -41,7 +41,6 @@ export class AuthzStrategy extends PassportStrategy(Strategy, 'authz') {
           // #TODO
         }
       }
-      console.log(err);
 
       return null;
     }
