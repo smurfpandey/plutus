@@ -1,6 +1,6 @@
 import { IsDateString, IsDecimal, IsEnum, IsNotEmpty, IsNumberString, IsUUID, Length, Max, Min, ValidateNested } from 'class-validator';
 
-import { AssetClass, FundManager, NPSTier } from '../entities/nps.scheme.entity';
+import { AssetClass, FundManager, NPSTier } from '../nps.enums';
 
 export class NPSSchemeDTO {
 

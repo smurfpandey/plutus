@@ -3,7 +3,7 @@ dev.plutus.smurfville.app {
     # Mkcert - https://github.com/FiloSottile/mkcert
     tls /root/certs/dev.plutus.smurfville.app.pem /root/certs/dev.plutus.smurfville.app-key.pem
 
-    proxy / http://host.lima.internal:3000 {
+    proxy / http://172.17.0.1:3000 {
         transparent
         header_upstream Host  "dev.plutus.smurfville.app"
     }

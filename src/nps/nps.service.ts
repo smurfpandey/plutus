@@ -4,8 +4,11 @@ import { UserEntity } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 import { AddNPSSchemeDTO } from './dtos/add-nps-schemes.dto';
 import { CreateNPSAccountDTO } from './dtos/create-nps-account.dto';
+import { CreateNPSTransactionDTO } from './dtos/create-nps-transaction.dto';
 import { NPSAccount } from './entities/nps.account.entity';
-import { AssetClass, NPSScheme, NPSTier } from './entities/nps.scheme.entity';
+import { NPSScheme} from './entities/nps.scheme.entity';
+import { NPSTransaction } from './entities/nps.transaction.entity';
+import { AssetClass, NPSTier } from './nps.enums';
 
 @Injectable()
 export class NPSService {
@@ -131,5 +134,11 @@ export class NPSService {
     });
 
     return this.npsSchemeRepository.save(arrSchemeAllocation);
+  }
+
+  async createTransaction(npsId: string, userId: string, createNPSTransactionDTO: CreateNPSTransactionDTO): Promise<NPSTransaction> {
+    // make sure this npsId belongs to this user
+
+    return null;
   }
 }

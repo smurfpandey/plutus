@@ -1,11 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { NPSAccount } from "./nps.account.entity";
 import { NPSScheme } from "./nps.scheme.entity";
-
-export enum TransactionType {
-  CR = 'Credit',
-  DR = 'Debit',
-}
+import { TransactionType } from '../nps.enums';
 
 @Entity()
 export class NPSTransaction {

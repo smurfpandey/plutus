@@ -63,15 +63,11 @@ export class NPSController {
 
   @Post(':id/scheme-allocation')
   async addSchemeAllocation(@Param('id') npsId: string, @Body() addNPSSchemeDTO: AddNPSSchemeDTO) {
-    try {
-      return await this.npsService.saveSchemeAllocation(npsId, addNPSSchemeDTO);
-    } catch (err) {
-      throw err;
-    }
+    return await this.npsService.saveSchemeAllocation(npsId, addNPSSchemeDTO);
   }
 
   @Post(':id/transactions')
   async createTransaction(@Param('id') npsId: string) {
-    
+
   }
  }
